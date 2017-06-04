@@ -1,0 +1,33 @@
+{{#each podcast}}
+	<div id="podCards">
+        <div class="mdl-card__actions">
+            <div class="mdl-card mdl-cell mdl-cell--12-col mdl-cell--2-col-tablet mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                      <h4 class="mdl-card__title-text" 
+                    	>{{this.title}}</h4>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p id="newPost">{{this.image}}</p>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Visit Profile</a>
+
+                        <div class="mdl-layout-spacer"></div>
+
+                        <button type="button" id="number" value="0" class="mdl-button mdl-button--icon mdl-button--colored"><i
+                        class="material-icons">favorite</i>
+                    </div>
+                </div>
+            </div>
+    </div>
+{{/each}}    
+
+	<drawer class="mdl-layout__drawer">
+	<div id="comments">
+		
+	
+
+
+	</div> 
+	</drawer>       
