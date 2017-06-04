@@ -7,7 +7,6 @@ var PodcastSchema = new Schema({
 		type: String,
 		required: true
 	},
-
 	image: {
 		type: String,
 		required: true
@@ -19,6 +18,10 @@ var PodcastSchema = new Schema({
 	comment: {
 		type:Schema.Types.ObjectId,
 		ref:"Comment"
+	}, 
+	saved:{
+		type:Boolean,
+		default: false
 	}
 });
 

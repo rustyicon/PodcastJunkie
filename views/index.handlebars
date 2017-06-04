@@ -1,5 +1,6 @@
-{{#each podcast}}
-	<div id="podCards">
+
+	<div class="mdl-layout" id="podCards">
+    {{#each podcast}}
         <div class="mdl-card__actions">
             <div class="mdl-card mdl-cell mdl-cell--12-col mdl-cell--2-col-tablet mdl-shadow--2dp">
                     <div class="mdl-card__title">
@@ -7,11 +8,11 @@
                     	>{{this.title}}</h4>
                     </div>
                     <div class="mdl-card__supporting-text">
-                        <p id="newPost">{{this.image}}</p>
+                        <img src"{{this.image}}" alt="placeholder" height="42" width="42">
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Visit Profile</a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="location.href='{{this.link}}'">Visit Profile</a>
 
                         <div class="mdl-layout-spacer"></div>
 
@@ -20,8 +21,9 @@
                     </div>
                 </div>
             </div>
+            {{/each}} 
     </div>
-{{/each}}    
+   
 
 	<drawer class="mdl-layout__drawer">
 	<div id="comments">

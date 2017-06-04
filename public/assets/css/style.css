@@ -1,0 +1,47 @@
+body{
+	background-color:#dfbaba;
+}
+header {
+	grid-area: top;
+	background-image: url("http://www.adweek.com/wp-content/uploads/files/2016_Jul/iab-podcast-event-hed-2016.png");
+	height: 300px;
+}
+div #tl-element{
+	position: absolute;
+	left: 550px;
+}
+#title {
+	font-family:'Monofett'; 
+	color: #db5000;
+}
+div #subheader {
+	font-family: 'Monofett';
+	font-size: 500%;
+	margin-top: -50px;
+	right: 10px;
+	position: relative;
+	color:#db5000;
+}
+.mdl-layout-drawer{
+	position: relative;
+}
+div #podCards{
+	display: flex;
+}
+.mdl-card__actions{
+	position: static;
+	float: left
+	display: flex;
+	box-sizing: border-box;
+	align-items: center;
+}
+form{
+	display: block;
+	width: 100%;
+	background-color:#dfbaba;
+}
+footer{
+	background-color:#ddeaff;
+}
+
+

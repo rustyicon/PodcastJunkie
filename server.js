@@ -24,7 +24,7 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({extended: false}));
 
 //access public dir
-//app.use(express.static("public"));
+app.use(express.static("public"));
 
 
 //handlebars setup
@@ -73,20 +73,34 @@ db.once("open", function(req, res){
 // 	res.send("../views/layouts/main.handlebars");
 // });
 
+app.get("/", function(res, res){
+	Podcast.find({}, function(error, doc){
+		if (error){
+			console.log(error);
+		}
+		else{
+			var hbsObject= {Podcast: doc};
+			console.log(hbsObject);
+			res.render("index", hbsObject);
+		}
+	});
+});
+
 app.get("/scrape", function(req, res){
 	request("http://www.npr.org/podcasts/2051/society-culture", 
 		function(error, response, html){
 			var $ = cheerio.load(html);
 			
-			//db.casts.drop();
+			Pocasts.drop();
+			
 			$("div.imagewrap").each(function(i, element){
-				var scraped = {};
+				var scrape = {};
 
-				scraped.title = $(this).children().children("img").attr("alt");
-				scraped.image = $(this).children().children("img").attr("src");
-				scraped.link = $(this).children("a").attr("href");
+				scrape.title = $(this).children().children("img").attr("alt");
+				scrape.image = $(this).children().children("img").attr("src");
+				scrape.link = $(this).children("a").attr("href");
 				
-				var entry = new Podcast(scraped);
+				var entry = new Podcast(scrape);
 
 				entry.save(function(err, scraped){
 					if (err){
@@ -117,15 +131,28 @@ app.get("/podcasts", function(res, res){
 });
 
 
-app.get("/saved", function (req, res){
+app.get("/saved/:id", function (req, res){
 	console.log(req.body);
 
-	Podcast.insert(req.body, function(error, saved){
+	Podcast.findOneAndUpdate({"_id": req.params.id}, {"save": true})
+	.exec(function(error, saved){
 		if (error){
 			console.log(error);
 		}
 		else {
 			res.send(saved);
+		}
+	});
+});
+
+app.get("/saved", function(req, res){
+	Podcast.find({favorite: true}, function(error, view){
+		var hbsObject = {favorite: view};
+		if (error){
+			console.log(error);
+		}
+		else{
+			res.render("saved", hbsObject);
 		}
 	});
 });
@@ -144,8 +171,8 @@ app.get("/delete:id", function(req, res){
 		}
 	});
 });
-
-app.get("/podcasts/:id", function(req, res) {
+/*
+app.get("/comment/:id", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   Podcast.findOne({ "_id": req.params.id })
   // ..and populate all of the notes associated with it
@@ -162,8 +189,9 @@ app.get("/podcasts/:id", function(req, res) {
     }
   });
 });
+*/
 
-app.post("/podcasts/:id", function(req, res) {
+app.post("/comment/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry
   var newComment = new Comment(req.body);
 
@@ -178,7 +206,6 @@ app.post("/podcasts/:id", function(req, res) {
       // Use the article id to find and update it's note
       Podcast.findOneAndUpdate({ "_id": req.params.id }, { "comment": doc._id })
       // Execute the above query
-      // Execute the above query
       .exec(function(err, doc) {
         // Log any errors
         if (err) {
@@ -186,7 +213,7 @@ app.post("/podcasts/:id", function(req, res) {
         }
         else {
           // Or send the document to the browser
-          res.send(doc);
+          res.redirect("/");
         }
       });
     }
