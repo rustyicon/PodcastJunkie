@@ -28,14 +28,9 @@ div #subheader {
    align-items: center;
    -webkit-justify-content: center;
    justify-content: center;
-   /* Or do it all in one line with flex flow */
+   /* Or do it all in one line with flex low */
    -webkit-flex-flow: row wrap;
-   flex-flow: row wrap;
-   /* tweak the where items line up on the row */
-   /* valid values are: flex-start, flex-end, space-between, space-around, stretch */
-   -webkit-align-content: flex-start;
-   align-content: flex-start;
-   overflow: scroll;
+   flex-flow: initial;
 
 }
 .mdl-layout__content {
@@ -45,8 +40,12 @@ div #subheader {
 }
 .mdl-card__actions{
 	display: flex;
-	
+	flex-wrap: wrap;
 }
+.mdl-card__actions img{
+padding-left: 20px;
+}
+
 .mdl-layout-drawer{
 	position: relative;
 }

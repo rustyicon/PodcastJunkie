@@ -6,11 +6,11 @@
             <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-shadow-8dp">
                     <div class="mdl-card__title">
                       <h1 class="mdl-card__title-text" 
-                    	>{{this.title}}</h1><button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"><i id="addingCom"
+                    	>{{this.title}}</h1><button type="button" id="addingCom" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-toggle="modal" data-target="#comForm"><i 
                         class="material-icons">comment</i></button><div class="mdl-tooltip" data-mdl-for="addingCom">Add a note</div>
                     </div>
                     <div class="mdl-card__supporting-text">
-                        <img src="{{this.image}}" alt="placeholder" height="350px" width="400px">
+                        <img src="{{this.image}}" alt="placeholder" height="100%" width="350px">
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         
@@ -36,30 +36,34 @@
 		
 
         
-    <main id="comForm" class="hide">
-        <div class="mdl-card mdl-shadow--6dp">
-            <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-                <h2 class="mdl-card__title-text">Comment</h2>
-            </div>
-        <div class="mdl-card__supporting-text">
-                <form action="save/{{this.podcast._id}}?_method=PUT" method="POST">
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="titleCom">
-                        <label class="mdl-textfield__label" for="titleCom">Title</label>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input"  id="bodyCom">
-                        <label class="mdl-textfield__label" for="bodyCom">Comment</label>
-                    </div>
-                </form>
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-                <button id="saveCom" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"><i id="add"
-                        class="material-icons">note</i><div class="mdl-tooltip" data-mdl-for="add">Save Note
-                </div></button>
+    <div class="modal fade" id="comForm" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Comment</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="save/{{this.podcast._id}}?_method=PUT" method="POST">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="titleCom">
+                            <label class="mdl-textfield__label" for="titleCom">Title</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input"  id="bodyCom">
+                            <label class="mdl-textfield__label" for="bodyCom">Comment</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="saveCom" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        <i id="add" class="material-icons">note</i>
+                        <div class="mdl-tooltip" data-mdl-for="add">Save Note</div>
+                    </button>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
 
 
 <div id="comments">

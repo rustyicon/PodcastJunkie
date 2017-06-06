@@ -32,18 +32,17 @@ $(document).click("div.mdl-card", function(){
 });
 */
 
-$(document).on("click", "#addingCom", function() {
-    $("#comForm").toggleClass("show");
-    
-    
+$(document).on("click", "#addingCom", function(){
+	$("#comForm").modal();
 });
+    
 
 $(document).on("click", "#savePod", function() {
 
 
     var id = $(this).attr("data-id");
 
-    $.post("/save/" + id,
+    $.post("/save/"+id,
         function(save) {
             if (err) {
                 console.log(err);

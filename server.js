@@ -83,7 +83,7 @@ app.get("/", function(res, res){
 });
 
 app.get("/scrape", function(req, res){
-	request("http://www.npr.org/podcasts/2061/technology", //"http://www.npr.org/podcasts/2038/news-politics","http://www.npr.org/podcasts/2051/society-culture","http://www.npr.org/podcasts/2066/tv-film", 
+	request("http://www.npr.org/podcasts/2061/technology", // , "http://www.npr.org/podcasts/2038/news-politics","http://www.npr.org/podcasts/2051/society-culture","http://www.npr.org/podcasts/2066/tv-film", 
 		function(error, response, html){
 			var $ = cheerio.load(html);
 			
@@ -131,15 +131,15 @@ app.get("/podcasts", function(res, res){
 app.post("/save/:id", function (req, res){
 	console.log(req.body);
 
-	Podcast.findOneAndUpdate({"_id": req.params.id}, {"save": true})
-	.exec(function(error, saved){
-		if (error){
-			console.log(error);
+	Podcast.findOneAndUpdate({"_id": req.params.id}, {$set:{saved: true}}),
+	function (err, saved){
+			if (err){
+				console.log(err);
+			}
+			else{
+				res.redirect("/")
+			}
 		}
-		else {
-			res.send(saved);
-		}
-	});
 });
 
 app.get("/saved", function(req, res){
