@@ -4,12 +4,14 @@ var Schema = mongoose.Schema;
 var CommentSchema = new Schema({
 	title: {
 		type: String,
+		required: true,
 		index:{
 			unique: true
 		}
 	},
 	body: {
-		type: String
+		type: String, 
+		required: true
 	}
 });
 

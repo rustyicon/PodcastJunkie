@@ -1,8 +1,7 @@
 body{
-	background-color:#dfbaba;
+	background-color:#b9b19a;
 }
 header {
-	grid-area: top;
 	background-image: url("http://www.adweek.com/wp-content/uploads/files/2016_Jul/iab-podcast-event-hed-2016.png");
 	height: 300px;
 }
@@ -22,26 +21,40 @@ div #subheader {
 	position: relative;
 	color:#db5000;
 }
+.mdl-layout >div{
+   display: -webkit-flex;
+   display: flex;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+   /* Or do it all in one line with flex flow */
+   -webkit-flex-flow: row wrap;
+   flex-flow: row wrap;
+   /* tweak the where items line up on the row */
+   /* valid values are: flex-start, flex-end, space-between, space-around, stretch */
+   -webkit-align-content: flex-start;
+   align-content: flex-start;
+   overflow: scroll;
+
+}
+.mdl-layout__content {
+	height:100%;
+	width: 100%;
+	
+}
+.mdl-card__actions{
+	display: flex;
+	
+}
 .mdl-layout-drawer{
 	position: relative;
 }
-div #podCards{
-	display: flex;
-}
-.mdl-card__actions{
-	position: static;
-	float: left
-	display: flex;
-	box-sizing: border-box;
-	align-items: center;
-}
 form{
 	display: block;
-	width: 100%;
-	background-color:#dfbaba;
-}
-footer{
-	background-color:#ddeaff;
+	overflow-x: auto;
+	width: 100px;
+	
 }
 
 

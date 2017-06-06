@@ -63,15 +63,11 @@ db.on("error", function(error){
 });
 
 //log db successful connection
-db.once("open", function(req, res){
+db.once("open", function(){
 	console.log("mongoose connection successful.");
 });
 
-
-//routes
-// app.get("/", function(req, res){
-// 	res.send("../views/layouts/main.handlebars");
-// });
+//ROUTES
 
 app.get("/", function(res, res){
 	Podcast.find({}, function(error, doc){
@@ -79,7 +75,7 @@ app.get("/", function(res, res){
 			console.log(error);
 		}
 		else{
-			var hbsObject= {Podcast: doc};
+			var hbsObject = {Podcast: doc};
 			console.log(hbsObject);
 			res.render("index", hbsObject);
 		}
@@ -87,20 +83,20 @@ app.get("/", function(res, res){
 });
 
 app.get("/scrape", function(req, res){
-	request("http://www.npr.org/podcasts/2051/society-culture", 
+	request("http://www.npr.org/podcasts/2061/technology", //"http://www.npr.org/podcasts/2038/news-politics","http://www.npr.org/podcasts/2051/society-culture","http://www.npr.org/podcasts/2066/tv-film", 
 		function(error, response, html){
 			var $ = cheerio.load(html);
 			
-			Pocasts.drop();
+			//Pocasts.drop();
 			
-			$("div.imagewrap").each(function(i, element){
-				var scrape = {};
+			$("div.imagewrap").each(function(i, element) {
+				var result = {};
 
-				scrape.title = $(this).children().children("img").attr("alt");
-				scrape.image = $(this).children().children("img").attr("src");
-				scrape.link = $(this).children("a").attr("href");
+				result.title = $(this).children().children("img").attr("alt");
+				result.image = $(this).children().children("img").attr("src");
+				result.link = $(this).children("a").attr("href");
 				
-				var entry = new Podcast(scrape);
+				var entry = new Podcast(result);
 
 				entry.save(function(err, scraped){
 					if (err){
@@ -108,6 +104,7 @@ app.get("/scrape", function(req, res){
 					}
 					else{
 						console.log(scraped);
+						
 					}
 				});
 				
@@ -115,7 +112,7 @@ app.get("/scrape", function(req, res){
 				
 		});
 		console.log("sracped!");
-		res.send("scraped this bih");
+		res.redirect("/");
 });
 
 app.get("/podcasts", function(res, res){
@@ -131,7 +128,7 @@ app.get("/podcasts", function(res, res){
 });
 
 
-app.get("/saved/:id", function (req, res){
+app.post("/save/:id", function (req, res){
 	console.log(req.body);
 
 	Podcast.findOneAndUpdate({"_id": req.params.id}, {"save": true})
@@ -157,7 +154,7 @@ app.get("/saved", function(req, res){
 	});
 });
 
-
+/*
 app.get("/delete:id", function(req, res){
 
 
@@ -171,8 +168,8 @@ app.get("/delete:id", function(req, res){
 		}
 	});
 });
-/*
-app.get("/comment/:id", function(req, res) {
+*/
+app.get("/comments", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   Podcast.findOne({ "_id": req.params.id })
   // ..and populate all of the notes associated with it
@@ -189,7 +186,7 @@ app.get("/comment/:id", function(req, res) {
     }
   });
 });
-*/
+
 
 app.post("/comment/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry

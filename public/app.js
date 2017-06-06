@@ -30,29 +30,42 @@ $(document).click("div.mdl-card", function(){
 
 	});
 });
+*/
 
-$(document).click("#save", function(){
-	
+$(document).on("click", "#addingCom", function() {
+    $("#comForm").toggleClass("show");
+    
+    
+});
 
-	var thisId = $(this).attr("data-id");
+$(document).on("click", "#savePod", function() {
 
-	$.ajax({
-		method: "POST",
-		url: "/podcasts/" + thisId, 
-		data: {
-			title: $("#titleinput").val(),
-			body: $("#bodyinput").val()
-		}
-	}).done(function(data){
-		console.log(data);
-		$("#comments").empty();
-		
-	});
 
-	$("#titleinput").val("");
-	$("#bodyinput").val("");
+    var id = $(this).attr("data-id");
+
+    $.post("/save/" + id,
+        function(save) {
+            if (err) {
+                console.log(err);
+            } else {
+
+                console.log(save);
+            }
+        });
 
 });
 
-*/
+$(document).on("click", "#saveCom", function() {
+    var id = $(this).attr("data-id");
 
+    var comTitle = $("#titleCom").val()
+    var comBody = $("#bodyCom").val();
+
+
+
+    $.post("/comment/" + id, comTitle, comBody, function(data) {
+        console.log(data);
+        $("#comments").empty();
+
+    });
+});
